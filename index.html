@@ -67,7 +67,7 @@
         <div class="row gy-4">
           <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
             <h1>Linguagem P4</h1>
-            <p>Programando o plano de dados de redes definidas por software</p>
+            <p>Programação do plano de dados de redes definidas por software</p>
             <div class="d-flex">
               <a href="#intro" class="btn-get-started">Vamos lá</a>
             </div>
@@ -96,9 +96,9 @@
               <h4>1.1. Evolução das Redes Definidas por Software (SDN)</h4>
               <p>Nas arquiteturas tradicionais de sistemas de redes, a hierarquia mais comum era a seguinte:</p>
               <ul>
-                <li>Plano de gerenciamento (Management Plane): Entende e lida com os hardwares especializados (ASICs) das máquinas. É responsável por realizar o encaminhamento e processamento dos dados conforme instruções definidas.</li>
-                <li>Plano de Controle (Control Plane): É o software que lida com a disposição e as decisões do controle de dados dentro do hardware das máquinas.</li>
-                <li>Plano de Dados (Data Plane / Fast Path): Algoritmo utilizado para otimizar o fluxo de pacotes dentro da rede.</li>
+                <li>Plano de gerenciamento (<i>Management Plane</i>): Entende e lida com os hardwares especializados (ASICs) das máquinas. É responsável por realizar o encaminhamento e processamento dos dados conforme instruções definidas.</li>
+                <li>Plano de Controle (<i>Control Plane</i>): É o software que lida com a disposição e as decisões do controle de dados dentro do hardware das máquinas.</li>
+                <li>Plano de Dados (<i>Data Plane / Fast Path</i>): Algoritmo utilizado para otimizar o fluxo de pacotes dentro da rede.</li>
               </ul>
               <p>
                 Tempos atrás, o fast path era escrito em Assembly, diretamente no hardware, numa tentativa de otimizar o fluxo de dados nas redes. Entretanto, isso limitava a atuação dos Circuitos Integrados (ASICs) utilizados, pois só suportavam protocolos específicos, que eram determinados pelos fabricantes.
@@ -110,13 +110,13 @@
             <div class="service-item position-relative">
               <h4>1.2. O que é a Linguagem P4</h4>
               <p>
-                A linguagem P4, cujo nome é Programming Protocol-independent Packet Processors, é uma linguagem de programação criada especialmente para programar dispositivos de rede. O P4 é, também, uma linguagem de domínio específico [domain-specific language] (.p4). Ela permite coletar um pacote, analisá-lo, compará-lo com regras, transformá-lo e remontá-lo para voltar à rede.
+                A linguagem P4, cujo nome é <i>Programming Protocol-independent Packet Processors</i>, é uma linguagem de programação criada especialmente para programar dispositivos de rede. O P4 é, também, uma linguagem de domínio específico [<i>domain-specific language</i>] (.p4). Ela permite coletar um pacote, analisá-lo, compará-lo com regras, transformá-lo e remontá-lo para voltar à rede.
               </p>
               <p>Esse projeto é open source, gerenciado pela organização p4lang, cuja documentação está toda no github (https://github.com/p4lang/), incluindo:</p>
               <ul>
                 <li>p4c: compilador referência para o P4_16</li>
                 <li>behavioral-model (bmv2): target de software de referência.</li>
-                <li>ptf (Packet Test Framework): framework de testes escrito em Python.</li>
+                <li>ptf (<i>Packet Test Framework</i>): framework de testes escrito em Python.</li>
               </ul>
             </div>
           </div>
@@ -238,7 +238,7 @@
       <div class="container section-title" data-aos="fade-up">
         <h2>4. Elementos e Sintaxe da Linguagem P4_16</h2>
         <p>
-          A linguagem P4_16 é estaticamente e fortemente tipada, com sintaxe inspirada na linguagem C. Para garantir que o processamento dos pacotes ocorra em tempo determinístico e na velocidade de linha (line rate), a linguagem não possui laços de repetição dinâmicos nem alocação dinâmica de memória.
+          A linguagem P4_16 é estaticamente e fortemente tipada, com sintaxe inspirada na linguagem C. Para garantir que o processamento dos pacotes ocorra em tempo determinístico e na velocidade de linha (<i>line rate</i>), a linguagem não possui laços de repetição dinâmicos nem alocação dinâmica de memória.
         </p>
       </div>
 
@@ -249,7 +249,7 @@
             <div class="service-item position-relative">
               <h4>4.1. Headers e Header Stacks</h4>
               <p>
-                Os Headers definem o formato exato dos cabeçalhos de rede, especificando a ordem e a largura em bits de cada campo através de tipos como bit&lt;W&gt; para inteiros sem sinal ou varbit&lt;W&gt; para campos de tamanho variável. Todo cabeçalho declarado possui um bit oculto de validade, manipulado pelos métodos isValid(), setValid() e setInvalid(), que indica ao switch se aquele protocolo está presente no pacote atual.
+                Os Headers definem o formato exato dos cabeçalhos de rede, especificando a ordem e a largura em bits de cada campo através de tipos como bit&lt;W&gt; para inteiros sem sinal ou varbit&lt;W&gt; para campos de tamanho variável. Todo cabeçalho declarado possui um bit oculto de validade, manipulado pelos métodos <i>isValid()</i>, <i>setValid()</i> e <i>setInvalid()</i>, que indica ao switch se aquele protocolo está presente no pacote atual.
               </p>
               <p>
                 Quando um protocolo permite múltiplas ocorrências consecutivas do mesmo cabeçalho, como ocorre com pilhas de rótulos MPLS ou múltiplas tags VLAN, utiliza-se o conceito de Header Stacks. Ele funciona como um vetor de tamanho fixo de cabeçalhos (mpls_t[4] mpls;), permitindo ao programador indexar e manipular cada camada da pilha individualmente durante a análise e modificação do pacote.
@@ -261,10 +261,10 @@
             <div class="service-item position-relative">
               <h4>4.2. Parsers e Máquina de Estados</h4>
               <p>
-                O Parser é implementado como uma máquina de estados finitos (state) responsável por extrair os bits brutos do pacote que chega pela rede e preencher as estruturas de cabeçalhos. Todo parser inicia obrigatoriamente no estado start e avança por estados intermediários utilizando o método packet.extract(), que lê os bits correspondentes e marca o cabeçalho como válido.
+                O Parser é implementado como uma máquina de estados finitos (<i>state</i>) responsável por extrair os bits brutos do pacote que chega pela rede e preencher as estruturas de cabeçalhos. Todo parser inicia obrigatoriamente no estado start e avança por estados intermediários utilizando o método <i>packet.extract()</i>, que lê os bits correspondentes e marca o cabeçalho como válido.
               </p>
               <p>
-                A transição entre estados ocorre por meio da instrução transition select(...), que inspeciona campos recém-extraídos, como o etherType do Ethernet ou o protocol do IPv4, para decidir qual será o próximo cabeçalho analisado. O fluxo termina quando o parser atinge o estado reservado accept, enviando o pacote para o pipeline de controle, ou reject, descartando pacotes malformados ou não suportados.
+                A transição entre estados ocorre por meio da instrução <i>transition select(...)</i>, que inspeciona campos recém-extraídos, como o etherType do Ethernet ou o protocol do IPv4, para decidir qual será o próximo cabeçalho analisado. O fluxo termina quando o parser atinge o estado reservado <i>accept</i>, enviando o pacote para o pipeline de controle, ou <i>reject</i>, descartando pacotes malformados ou não suportados.
               </p>
             </div>
           </div>
@@ -273,12 +273,12 @@
             <div class="service-item position-relative">
               <h4>4.3. Tabelas Match-Action</h4>
               <p>
-                As Tabelas Match-Action são a estrutura central de decisão do P4. Elas associam critérios de busca nos campos do pacote (Match) às funções que modificam ou encaminham esse pacote (Action). Os três principais tipos de correspondência suportados são:
+                As Tabelas Match-Action são a estrutura central de decisão do P4. Elas associam critérios de busca nos campos do pacote (<i>Match</i>) às funções que modificam ou encaminham esse pacote (<i>Action</i>). Os três principais tipos de correspondência suportados são:
               </p>
               <ul>
-                <li>exact (Exata): Exige que o valor extraído do pacote seja 100% idêntico ao valor armazenado na entrada da tabela. Muito usado para endereços MAC ou portas TCP/UDP.</li>
-                <li>lpm (Longest Prefix Match): Busca o prefixo de bits mais longo que coincide com o valor do pacote. É o padrão utilizado para tabelas de roteamento IPv4 e IPv6 baseadas em máscaras de sub-rede.</li>
-                <li>ternary (Ternária): Utiliza uma máscara de bits arbitrária (wildcard) onde cada bit pode ser comparado como 0, 1 ou "indiferente" (don't care). É amplamente empregada em Listas de Controle de Acesso (ACLs) e regras de firewall.</li>
+                <li>exact: Exige que o valor extraído do pacote seja 100% idêntico ao valor armazenado na entrada da tabela. Muito usado para endereços MAC ou portas TCP/UDP.</li>
+                <li>lpm (<i>Longest Prefix Match</i>): Busca o prefixo de bits mais longo que coincide com o valor do pacote. É o padrão utilizado para tabelas de roteamento IPv4 e IPv6 baseadas em máscaras de sub-rede.</li>
+                <li>Ternária (<i>ternary</i>): Utiliza uma máscara de bits arbitrária (<i>wildcard</i>) onde cada bit pode ser comparado como 0, 1 ou "indiferente" (<i>don't care</i>). É amplamente empregada em Listas de Controle de Acesso (ACLs) e regras de firewall.</li>
               </ul>
             </div>
           </div>
@@ -299,9 +299,9 @@
                 Por padrão, o processamento de cada pacote em P4 é stateless, ou seja, o switch não retém memória entre um pacote e outro. Para implementar funcionalidades com estado (stateful), a linguagem utiliza objetos externos fornecidos pela arquitetura:
               </p>
               <ul>
-                <li>Contadores (Counters): Armazenam estatísticas de quantidade de pacotes e volume de bytes associados a regras de tabelas ou índices específicos, permitindo que o plano de controle monitore o tráfego.</li>
-                <li>Meters (Medidores): Medem a taxa de chegada de pacotes em tempo real, usando algoritmos como Token Bucket, classificando o tráfego em verde, amarelo ou vermelho para aplicar políticas de Qualidade de Serviço (QoS) e descarte seletivo.</li>
-                <li>Registradores (Registers): São espaços de memória genéricos de leitura e escrita acessíveis diretamente pelo plano de dados durante a passagem do pacote. Permitem guardar variáveis persistentes entre pacotes consecutivos, viabilizando algoritmos avançados como detecção de fluxos pesados, heavy hitters, balanceamento de carga dinâmico e mitigação autônoma de ataques.</li>
+                <li>Contadores (<i>Counters</i>): Armazenam estatísticas de quantidade de pacotes e volume de bytes associados a regras de tabelas ou índices específicos, permitindo que o plano de controle monitore o tráfego.</li>
+                <li>Medidores (<i>Meters</i>): Medem a taxa de chegada de pacotes em tempo real, usando algoritmos como Token Bucket, classificando o tráfego em verde, amarelo ou vermelho para aplicar políticas de Qualidade de Serviço (QoS) e descarte seletivo.</li>
+                <li>Registradores (<i>Registers</i>): São espaços de memória genéricos de leitura e escrita acessíveis diretamente pelo plano de dados durante a passagem do pacote. Permitem guardar variáveis persistentes entre pacotes consecutivos, viabilizando algoritmos avançados como detecção de fluxos pesados, heavy hitters, balanceamento de carga dinâmico e mitigação autônoma de ataques.</li>
               </ul>
             </div>
           </div>
