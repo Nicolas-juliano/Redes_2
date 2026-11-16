@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Linguagem P4 - Redes de Computadores</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <h1 class="sitename">Linguagem P4</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#intro">Introdução</a></li>
+          <li><a href="#conceitos">Conceitos</a></li>
+          <li><a href="#arq">Arquitetura</a></li>
+          <li><a href="#sintaxe">Sintaxe P4_16</a></li>
+          <li><a href="#controle">Controle</a></li>
+          <li><a href="#ferramentas">Ecossistema</a></li>
+          <li><a href="#casos">Casos de Uso</a></li>
+          <li><a href="#vantagens">Análise</a></li>
+          <li><a href="#conclusao">Conclusão</a></li>
+          <li><a href="#perguntas">Perguntas</a></li>
+          <li><a href="#bib">Referências</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+            <h1>Linguagem P4</h1>
+            <p>Programando o plano de dados de redes definidas por software</p>
+            <div class="d-flex">
+              <a href="#intro" class="btn-get-started">Vamos lá</a>
+            </div>
+          </div>
+          <div class="col-lg-6 order-1 order-lg-2 hero-img">
+            <img src="assets/img/P4-logo.svg.webp" class="img-fluid animated" alt="Logo P4">
+          </div>
+        </div>
+      </div>
+    </section><!-- /Hero Section -->
+
+    <!-- 1. Introdução -->
+    <section id="intro" class="services section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>1. Introdução</h2>
+        <p>
+          Quando pensamos em como uma rede funciona, geralmente imaginamos os roteadores e switches funcionando, mas não em como as decisões foram tomadas. Durante muito tempo, essa decisão estava atrelada ao hardware, ou seja, aos fabricantes dos chips, não aos administradores das redes. Quando um novo protocolo surgia, ou quando passava por alguma adaptação, não era possível simplesmente atualizá-lo; era preciso pedir suporte aos fabricantes e esperar por meses (e às vezes anos). Sendo assim, a linguagem P4 foi criada para suprir essa necessidade de manutenção da rede, de forma que fosse possível tornar esse fluxo de rede programável e adaptável.
+        </p>
+      </div>
+
+      <div class="container">
+        <div class="row gy-4">
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item position-relative">
+              <h4>1.1. Evolução das Redes Definidas por Software (SDN)</h4>
+              <p>Nas arquiteturas tradicionais de sistemas de redes, a hierarquia mais comum era a seguinte:</p>
+              <ul>
+                <li>Plano de gerenciamento (Management Plane): Entende e lida com os hardwares especializados (ASICs) das máquinas. É responsável por realizar o encaminhamento e processamento dos dados conforme instruções definidas.</li>
+                <li>Plano de Controle (Control Plane): É o software que lida com a disposição e as decisões do controle de dados dentro do hardware das máquinas.</li>
+                <li>Plano de Dados (Data Plane / Fast Path): Algoritmo utilizado para otimizar o fluxo de pacotes dentro da rede.</li>
+              </ul>
+              <p>
+                Tempos atrás, o fast path era escrito em Assembly, diretamente no hardware, numa tentativa de otimizar o fluxo de dados nas redes. Entretanto, isso limitava a atuação dos Circuitos Integrados (ASICs) utilizados, pois só suportavam protocolos específicos, que eram determinados pelos fabricantes.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-item position-relative">
+              <h4>1.2. O que é a Linguagem P4</h4>
+              <p>
+                A linguagem P4, cujo nome é Programming Protocol-independent Packet Processors, é uma linguagem de programação criada especialmente para programar dispositivos de rede. O P4 é, também, uma linguagem de domínio específico [domain-specific language] (.p4). Ela permite coletar um pacote, analisá-lo, compará-lo com regras, transformá-lo e remontá-lo para voltar à rede.
+              </p>
+              <p>Esse projeto é open source, gerenciado pela organização p4lang, cuja documentação está toda no github (https://github.com/p4lang/), incluindo:</p>
+              <ul>
+                <li>p4c: compilador referência para o P4_16</li>
+                <li>behavioral-model (bmv2): target de software de referência.</li>
+                <li>ptf (Packet Test Framework): framework de testes escrito em Python.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-item position-relative">
+              <h4>1.3. Objetivos e Motivação do P4</h4>
+              <p>Dentre os objetivos da linguagem P4, os principais são:</p>
+              <ul>
+                <li>Dar autonomia para os engenheiros de rede, para que eles possam implementar comportamentos específicos e protocolos próprios sem depender dos fabricantes de chips</li>
+                <li>Gerar APIs automaticamente, de modo que o plano de controle seja deduzido pelo próprio programa P4, gerando APIs de runtime para o controle de tabelas e objetos.</li>
+                <li>Otimizar recursos, reservando memória e processamento apenas para protocolos utilizados pela aplicação, sem usar suportes de protocolos não usados</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- /1. Introdução -->
+
+    <!-- 2. Conceitos Fundamentais e Filosofia -->
+    <section id="conceitos" class="services section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>2. Conceitos Fundamentais e Filosofia</h2>
+      </div>
+
+      <div class="container">
+        <div class="row gy-4">
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item position-relative">
+              <h4>2.1. Independência de Protocolo</h4>
+              <p>Um processador de pacotes programado em P4 não conhece nenhum protocolo. Para ensiná-lo a lidar com protocolos (como IPv4, IPv6, TCP, Ethernet, etc.), o programador precisa definir:</p>
+              <ul>
+                <li>Headers: Indicando a disposição dos campos de cada cabeçalho em bits.</li>
+                <li>Parser: Uma máquina de estados finitos que identifica quais cabeçalhos e em qual ordem estão presentes, a partir dos bits do pacote.</li>
+                <li>Tabelas match-action: Determinação de quais são as lógicas de busca e quais ações devem ser executadas pela rede.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-item position-relative">
+              <h4>2.2. Independência de Target (Hardware)</h4>
+              <p>A partir do momento em que se têm dispositivos de hardware programáveis, não é mais necessário para o engenheiro de rede conhecer os detalhes específicos de cada chip, pois esse trabalho passa a ser do compilador p4c. A partir do programa, ele gera a configuração para o target escolhido e também os metadados da API em tempo de execução. Os alvos (targets) podem ser divididos em:</p>
+              <ul>
+                <li>Hardwares programáveis: FPGAS, ASICs programáveis, etc</li>
+                <li>Ambientes de software: processadores x86, targets baseados em DPDK, etc</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-item position-relative">
+              <h4>2.3. Reconfigurabilidade em Campo</h4>
+              <p>A possibilidade de programar sobre a rede possibilita que o administrador possa carregar um novo binário P4 em algum target que já está funcionando, permitindo:</p>
+              <ul>
+                <li>Atualizar a rede para suportar novos protocolos de encapsulamento</li>
+                <li>Redirecionar recursos de hardware</li>
+                <li>Remover protocolos obsoletos</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="400">
+            <div class="service-item position-relative">
+              <h4>2.4. Evolução da Linguagem (P4_14 vs. P4_16)</h4>
+              <p>A linguagem P4 começou com a versão P4_14, mas depois foi atualizada para uma versão mais moderna e modular, a P4_16.</p>
+              <p>P4_14:</p>
+              <ul>
+                <li>Compilador: Usa o p4-hlir (feito em Python)</li>
+                <li>Execuções de ações: Ações executadas em paralelo por padrão</li>
+                <li>Deparser: Implícito, deduzido de forma inversa ao parser</li>
+                <li>Arquitetura: Preso a um modelo genérico de hardware</li>
+                <li>Tipagem: Tipagem básica</li>
+              </ul>
+              <p>P4_16:</p>
+              <ul>
+                <li>Compilador: Usa o p4c (feito em C++)</li>
+                <li>Execuções de ações: Ações que são executadas em blocos de controle estritamente sequenciais</li>
+                <li>Deparser: Explícito, o programador escreve em um bloco como o pacote deve ser remontado</li>
+                <li>Arquitetura: Separa a linguagem do modelo de arquitetura (V1Model, PSA)</li>
+                <li>Tipagem: Tem um sistema de tipos forte e expressivo</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- /2. Conceitos Fundamentais -->
+
+    <!-- 3. Modelo de Arquitetura (ESPAÇO RESERVADO) -->
+    <section id="arq" class="services section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>3. Modelo de Arquitetura do Processamento de Pacotes</h2>
+      </div>
+
+      <div class="container">
+        <div class="row gy-4">
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item position-relative">
+              <h4>3.1. Pipeline de Processamento (Parser, Ingress, Deparser, Egress)</h4>
+            </div>
+          </div>
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-item position-relative">
+              <h4>3.2. Modelos de Arquitetura (V1Model e PSA)</h4>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- /3. Modelo de Arquitetura -->
+
+    <!-- 4. Elementos e Sintaxe da Linguagem P4_16 -->
+    <section id="sintaxe" class="services section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>4. Elementos e Sintaxe da Linguagem P4_16</h2>
+        <p>
+          A linguagem P4_16 é estaticamente e fortemente tipada, com sintaxe inspirada na linguagem C. Para garantir que o processamento dos pacotes ocorra em tempo determinístico e na velocidade de linha (line rate), a linguagem não possui laços de repetição dinâmicos nem alocação dinâmica de memória.
+        </p>
+      </div>
+
+      <div class="container">
+        <div class="row gy-4">
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item position-relative">
+              <h4>4.1. Headers e Header Stacks</h4>
+              <p>
+                Os Headers definem o formato exato dos cabeçalhos de rede, especificando a ordem e a largura em bits de cada campo através de tipos como bit&lt;W&gt; para inteiros sem sinal ou varbit&lt;W&gt; para campos de tamanho variável. Todo cabeçalho declarado possui um bit oculto de validade, manipulado pelos métodos isValid(), setValid() e setInvalid(), que indica ao switch se aquele protocolo está presente no pacote atual.
+              </p>
+              <p>
+                Quando um protocolo permite múltiplas ocorrências consecutivas do mesmo cabeçalho, como ocorre com pilhas de rótulos MPLS ou múltiplas tags VLAN, utiliza-se o conceito de Header Stacks. Ele funciona como um vetor de tamanho fixo de cabeçalhos (mpls_t[4] mpls;), permitindo ao programador indexar e manipular cada camada da pilha individualmente durante a análise e modificação do pacote.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-item position-relative">
+              <h4>4.2. Parsers e Máquina de Estados</h4>
+              <p>
+                O Parser é implementado como uma máquina de estados finitos (state) responsável por extrair os bits brutos do pacote que chega pela rede e preencher as estruturas de cabeçalhos. Todo parser inicia obrigatoriamente no estado start e avança por estados intermediários utilizando o método packet.extract(), que lê os bits correspondentes e marca o cabeçalho como válido.
+              </p>
+              <p>
+                A transição entre estados ocorre por meio da instrução transition select(...), que inspeciona campos recém-extraídos, como o etherType do Ethernet ou o protocol do IPv4, para decidir qual será o próximo cabeçalho analisado. O fluxo termina quando o parser atinge o estado reservado accept, enviando o pacote para o pipeline de controle, ou reject, descartando pacotes malformados ou não suportados.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-item position-relative">
+              <h4>4.3. Tabelas Match-Action</h4>
+              <p>
+                As Tabelas Match-Action são a estrutura central de decisão do P4. Elas associam critérios de busca nos campos do pacote (Match) às funções que modificam ou encaminham esse pacote (Action). Os três principais tipos de correspondência suportados são:
+              </p>
+              <ul>
+                <li>exact (Exata): Exige que o valor extraído do pacote seja 100% idêntico ao valor armazenado na entrada da tabela. Muito usado para endereços MAC ou portas TCP/UDP.</li>
+                <li>lpm (Longest Prefix Match): Busca o prefixo de bits mais longo que coincide com o valor do pacote. É o padrão utilizado para tabelas de roteamento IPv4 e IPv6 baseadas em máscaras de sub-rede.</li>
+                <li>ternary (Ternária): Utiliza uma máscara de bits arbitrária (wildcard) onde cada bit pode ser comparado como 0, 1 ou "indiferente" (don't care). É amplamente empregada em Listas de Controle de Acesso (ACLs) e regras de firewall.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="400">
+            <div class="service-item position-relative">
+              <h4>4.4. Control Flows</h4>
+              <p>
+                Enquanto as tabelas definem quais decisões podem ser tomadas, os Control Flows, blocos control como Ingress e Egress, definem a ordem sequencial em que essas tabelas e operações são executadas. Dentro do bloco apply { ... }, o programador escreve a lógica imperativa utilizando estruturas condicionais if / else, verificando a validade de cabeçalhos com if (hdr.ipv4.isValid()), invocando tabelas com ipv4_lpm.apply(); e avaliando se houve correspondência (hit ou miss) para encadear decisões complexas ao longo do pipeline.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="500">
+            <div class="service-item position-relative">
+              <h4>4.5. Estado no Plano de Dados</h4>
+              <p>
+                Por padrão, o processamento de cada pacote em P4 é stateless, ou seja, o switch não retém memória entre um pacote e outro. Para implementar funcionalidades com estado (stateful), a linguagem utiliza objetos externos fornecidos pela arquitetura:
+              </p>
+              <ul>
+                <li>Contadores (Counters): Armazenam estatísticas de quantidade de pacotes e volume de bytes associados a regras de tabelas ou índices específicos, permitindo que o plano de controle monitore o tráfego.</li>
+                <li>Meters (Medidores): Medem a taxa de chegada de pacotes em tempo real, usando algoritmos como Token Bucket, classificando o tráfego em verde, amarelo ou vermelho para aplicar políticas de Qualidade de Serviço (QoS) e descarte seletivo.</li>
+                <li>Registradores (Registers): São espaços de memória genéricos de leitura e escrita acessíveis diretamente pelo plano de dados durante a passagem do pacote. Permitem guardar variáveis persistentes entre pacotes consecutivos, viabilizando algoritmos avançados como detecção de fluxos pesados, heavy hitters, balanceamento de carga dinâmico e mitigação autônoma de ataques.</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- /4. Elementos e Sintaxe -->
+
+    <!-- 5. Integração com o Plano de Controle -->
+    <section id="controle" class="services section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>5. Integração com o Plano de Controle</h2>
+        <p>
+          Um programa P4 define apenas a estrutura do plano de dados, isto é, como o switch deve processar pacotes, mas não contém as rotas ou regras específicas da rede. A responsabilidade de preencher, atualizar e remover entradas nas tabelas continua pertencendo ao Plano de Controle.
+        </p>
+      </div>
+
+      <div class="container">
+        <div class="row gy-4">
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item position-relative">
+              <h4>5.1. Separação Plano de Dados vs. Plano de Controle</h4>
+              <p>Nas redes definidas por software (SDN) programáveis com P4, é feita uma divisão de responsabilidades:</p>
+              <ul>
+                <li>Plano de Dados (Data Plane): Opera no hardware ou switch virtual em altíssima velocidade. Executa apenas o pipeline definido em P4, como extração de cabeçalhos, consultas em tabelas e execução de ações, sem tomar decisões globais de topologia.</li>
+                <li>Plano de Controle (Control Plane): Opera em software, em um controlador SDN centralizado ou em uma CPU local do switch. Ele executa protocolos de roteamento (como BGP e OSPF), descobre a topologia da rede e popula as tabelas do plano de dados com as regras apropriadas.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-item position-relative">
+              <h4>5.2. P4Runtime API</h4>
+              <p>
+                Para conectar os dois planos sem depender de protocolos proprietários ou engessados, como ocorria com versões antigas do OpenFlow, foi criada a P4Runtime API.
+              </p>
+              <p>
+                Durante a compilação do código P4, o compilador gera automaticamente um arquivo de metadados chamado P4Info, que funciona como um contrato descrevendo todas as tabelas, chaves, ações, contadores e registradores do programa. Utilizando o protocolo gRPC, sobre HTTP/2, e mensagens Protocol Buffers, o controlador lê o P4Info e passa a gerenciar o switch em tempo de execução. Se o engenheiro de rede criar um novo protocolo em P4 e recompilar o programa, a API P4Runtime se adapta automaticamente às novas tabelas sem exigir alterações no protocolo de comunicação.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- /5. Integração com o Plano de Controle -->
+
+    <!-- 6. Ferramentas e Ecossistema de Desenvolvimento -->
+    <section id="ferramentas" class="services section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>6. Ferramentas e Ecossistema de Desenvolvimento</h2>
+        <p>
+          O ecossistema P4 é mantido como código aberto pela comunidade P4 Language Consortium, oferecendo ferramentas completas desde a compilação até a simulação e implementação em hardware real.
+        </p>
+      </div>
+
+      <div class="container">
+        <div class="row gy-4">
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item position-relative">
+              <h4>6.1. Compilador P4 (p4c)</h4>
+              <p>
+                O p4c é o compilador de referência oficial para a linguagem P4_16 desenvolvido em C++. Sua arquitetura é dividida em um frontend, que valida a sintaxe e a semântica do código .p4 independentemente do hardware, e múltiplos backends específicos para cada dispositivo alvo (target). Ao compilar um programa, o p4c gera dois artefatos principais:
+              </p>
+              <ol>
+                <li>O binário ou arquivo de configuração específico para o target (ex.: arquivo JSON para emuladores ou microcódigo para chips programáveis).</li>
+                <li>O arquivo P4Info, utilizado pela API P4Runtime para integrar o plano de controle.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-item position-relative">
+              <h4>6.2. Emuladores e Switches Virtuais</h4>
+              <p>Para testar e validar programas P4 sem precisar de switches físicos caros, utiliza-se amplamente um ambiente virtual composto por duas ferramentas:</p>
+              <ul>
+                <li>BMv2 (Behavioral Model version 2): É o switch virtual de referência escrito em C++. Ele lê o arquivo JSON gerado pelo p4c e simula fielmente o comportamento de um pipeline P4, incluindo a arquitetura v1model, gerando logs detalhados de cada etapa do processamento de pacotes.</li>
+                <li>Mininet: Emulador que cria redes virtuais completas com hosts, switches BMv2 e enlaces dentro de uma única máquina Linux. Através dele, os desenvolvedores conseguem injetar tráfego real usando ferramentas como ping, iperf e scripts Python com a biblioteca Scapy, ideal para forjar pacotes com cabeçalhos customizados, e validar o comportamento da rede em tempo real.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-item position-relative">
+              <h4>6.3. Targets Físicos e Hardware Comercial</h4>
+              <p>Além dos ambientes simulados em software, o código P4 pode ser compilado para rodar em equipamentos físicos de produção em escala de Terabits por segundo:</p>
+              <ul>
+                <li>ASICs Programáveis (Switches Comerciais): Chips especializados de alto desempenho projetados especificamente para pipelines P4, como a família Intel Tofino e dispositivos da Broadcom e Cisco. Eles entregam programabilidade total mantendo a mesma latência mínima e vazão de switches tradicionais de data center.</li>
+                <li>SmartNICs (Placas de Rede Inteligentes) e FPGAs: Placas de rede equipadas com processadores multicore, NPUs ou chips FPGA, como as placas Netronome Agilio, NVIDIA BlueField e AMD/Xilinx Alveo. Elas permitem executar programas P4 diretamente nos servidores finais, realizando offloading de funções de firewall, virtualização de rede e telemetria antes mesmo que os pacotes cheguem à CPU principal do servidor.</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- /6. Ferramentas e Ecossistema -->
+
+    <!-- 7. Casos de Uso e Aplicações -->
+    <section id="casos" class="services section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>7. Casos de Uso e Aplicações</h2>
+      </div>
+
+      <div class="container">
+        <div class="row gy-4">
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item position-relative">
+              <h4>7.1. In-Band Network Telemetry (INT)</h4>
+              <p>
+                O INT (In-Band Network Telemetry) é uma técnica que permite que os dispositivos da rede coletem os dados sobre o caminho percorrido pelo pacote. Cada switch compatível com INT insere através do cabeçalho customizado metadados (ID do Switch, timestamp, latência de salto e profundidade de fila) e o último switch "sink" extrai os dados.
+              </p>
+              <p>
+                Essa técnica se sobressai no P4 pois o parser/deparser programável permite definir o formato do cabeçalho INT e manipulá-lo na velocidade de linha. Dessa forma, obtém-se a visibilidade por pacote em tempo real e se torna possível identificar gargalos e realizar a análise da rede em tempo real.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-item position-relative">
+              <h4>7.2. Criação de Protocolos Personalizados</h4>
+              <p>
+                A ideia principal da criação de protocolos personalizados é permitir que o dispositivo consiga processar formatos de dados não esperados pelo processamento tradicional esperado pelo switch. O programa P4 permite definir o campo dos cabeçalhos, como identificá-los e quais ações executar para cada pacote.
+              </p>
+              <p>
+                Algumas vantagens disso são que: por meio da criação desses protocolos é possível definir novos cabeçalhos e máquina de estados parser sem depender de um fabricante. Além disso, é possível testar e implementar novos comportamentos sem depender de uma atualização no hardware.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-item position-relative">
+              <h4>7.3. Segurança na Camada de Dados</h4>
+              <p>
+                O P4 tem um papel importante na segurança na camada de dados. O P4 permite aplicar políticas de segurança enquanto os dados atravessam a rede, além de proporcionar rápida identificação e bloqueio de um tráfego de rede indevido e de ataques maliciosos. A defesa ocorre dentro do switch sem ser necessário desvio de tráfego.
+              </p>
+              <p>
+                Por exemplo: o P4 permite programar o switch para que reconheça cabeçalhos específicos e aplicar algoritmos de criptografia diretamente nos pacotes de dados conforme ele passa pelo chip ASIC, sem reduzir a velocidade da rede. Outro cenário prático comum do uso do P4 na segurança é na defesa de DDoS e Injeção de pacotes, pois programas em P4 conseguem validar a integridade do cabeçalho e se estiver comprometido o switch descarta na borda da rede.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="400">
+            <div class="service-item position-relative">
+              <h4>7.4. Offloading de Funções de Rede</h4>
+              <p>
+                A fim de reduzir a carga da CPU e aumentar o processamento total, quando implementada de forma correta o P4 permite transferir determinadas tarefas de processamento de pacotes da CPU para equipamentos especializados.
+              </p>
+              <p>
+                O P4 programa funções compatíveis a serem executadas no plano de dados de switches, NICs e outros dispositivos programáveis. Isso pode ser observado em exemplos como balanceamento de carga, cache em rede e funções de firewall, aumentando a vazão das CPU's e reduzindo latência.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- /7. Casos de Uso -->
+
+    <!-- 8. Vantagens, Limitações e Tendências Futuras -->
+    <section id="vantagens" class="services section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>8. Vantagens, Limitações e Tendências Futuras</h2>
+      </div>
+
+      <div class="container">
+        <div class="row gy-4">
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item position-relative">
+              <h4>8.1. Vantagens do P4</h4>
+              <ul>
+                <li>Flexibilidade: o desenvolvedor define como os pacotes são processados.</li>
+                <li>Independência de protocolo e de target (mesmo código para diferentes hardwares, em teoria).</li>
+                <li>Inovação mais rápida: novas funcionalidades sem esperar o ciclo de fabricantes.</li>
+                <li>Reconfiguração em campo, sem trocar hardware.</li>
+                <li>Desempenho de linha (Tbps) com programabilidade.</li>
+                <li>Visibilidade e controle fino da rede (ex.: INT).</li>
+                <li>Ecossistema aberto e apoiado pela comunidade (P4.org).</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-item position-relative">
+              <h4>8.2. Desafios e Limitações Técnicas</h4>
+              <ul>
+                <li>Restrições de Hardware: Nem todo dispositivo aceita todas as operações, larguras de campos ou recursos da linguagem.</li>
+                <li>Portabilidade Limitada: Um programa pode precisar de adaptações para outra arquitetura, mesmo que ambos os equipamentos sejam programáveis em P4. (V1 Model vs. PSA vs. arquiteturas específicas)</li>
+                <li>Dificuldade de desenvolvimento: É preciso compreender protocolos, pipelines, tabelas, arquitetura e restrições de compilação.</li>
+                <li>Depuração e manutenção: Importante testar o comportamento dos pacotes, a configuração das tabelas e o funcionamento em diferentes ambientes.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-item position-relative">
+              <h4>8.3. Tendências Futuras da Linguagem</h4>
+              <p>Através da análise do uso e dos pontos fortes da linguagem P4 podemos inferir algumas tendências para o futuro desta.</p>
+              <ul>
+                <li>Expansão da Portabilidade e melhoria da portabilidade (Padronização do PSA)</li>
+                <li>Integração com IA/Machine Learning: inferência e agregação de dados diretamente na rede</li>
+                <li>Melhoria de ferramentas como compiladores, debuggers, simuladores etc. (também auxilia na aprendizagem além do desenvolvimento)</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- /8. Vantagens, Limitações e Tendências -->
+
+    <!-- 9. Conclusão  -->
+    <section id="conclusao" class="services section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>9. Conclusão</h2>
+      </div>
+
+      <div class="container">
+        <div class="row gy-4">
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item position-relative">
+              <h4>9.1. Síntese</h4>
+            </div>
+          </div>
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-item position-relative">
+              <h4>9.2. Impacto do P4 no Futuro das Redes Programáveis</h4>
+              <p>
+                A linguagem P4 é importante pois tem impactos positivos tanto no aspecto de fluxo de rede, como na segurança na camada de dados (filtragem, mitigação de DDoS) e na integração de rede. O P4 fortalece o uso da ideia de rede como software, muda o paradigma da rede definida pelo fabricante para rede definida pelo operador, e abre computação em redes. Além disso, proporciona redes mais observáveis e adaptáveis e possibilita explorar o uso de Machine Learning para previsão e tratamento de pacotes.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-item position-relative">
+              <h4>9.3. Considerações Finais</h4>
+              <p>
+                O P4 possui grande potencial para transformar as redes, por oferecer flexibilidade, visibilidade e controle sobre o plano de dados, além de viabilizar aplicações de segurança e de computação em rede, inclusive com apoio de técnicas de inteligência artificial.
+              </p>
+              <p>
+                Entretanto, a curva de aprendizado, a portabilidade limitada na prática e a necessidade de equipamentos compatíveis elevam o custo de adoção e tendem a concentrar seu uso em grandes operadoras e data centers. Assim, a consolidação do P4 dependerá do amadurecimento das ferramentas e da padronização das arquiteturas, como o PSA, o que faz dele um tema promissor para estudos futuros.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- /9. Conclusão -->
+
+    <!-- Perguntas aos Leitores (ESPAÇO RESERVADO) -->
+    <section id="perguntas" class="faq-2 section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Perguntas aos Leitores!</h2>
+      </div>
+
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-10">
+            <div class="faq-container">
+
+              <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                <i class="faq-icon bi bi-question-circle"></i>
+                <h3>1. </h3>
+                <div class="faq-content">
+                  <p></p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+
+              <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                <i class="faq-icon bi bi-question-circle"></i>
+                <h3>2. </h3>
+                <div class="faq-content">
+                  <p></p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+
+              <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+                <i class="faq-icon bi bi-question-circle"></i>
+                <h3>3. </h3>
+                <div class="faq-content">
+                  <p></p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+
+              <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
+                <i class="faq-icon bi bi-question-circle"></i>
+                <h3>4. </h3>
+                <div class="faq-content">
+                  <p></p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+
+              <div class="faq-item" data-aos="fade-up" data-aos-delay="500">
+                <i class="faq-icon bi bi-question-circle"></i>
+                <h3>5. </h3>
+                <div class="faq-content">
+                  <p></p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- /Perguntas -->
+
+    <!-- 10. Referências -->
+    <section id="bib" class="services section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>10. Referências</h2>
+      </div>
+
+      <div class="container" style="text-align: center;">
+        <ul class="bibliography" style="display: inline-block; text-align: left;">
+          <li><a href="https://errc.sbc.org.br/2019/mc/camera2019p4.pdf">SBC</a> – Introdução à linguagem de programação P4, o futuro das redes</li>
+          <li><a href="https://p4.org/">P4.org</a> – P4 Open Source Programming Language</li>
+          <li><a href="https://p4.org/wp-content/uploads/sites/53/2024/10/P4-16-spec-v1.2.5.html">P4.org</a> – P4_16 Language specification</li>
+          <li><a href="https://yuba.stanford.edu/~nickm/papers/v44n3k2-bosshartA.pdf">Stanford</a> – P4: Programming Protocol-Independent Packet Processors</li>
+          <li><a href="https://www.researchgate.net/publication/345240319_P8_P4_With_Predictable_Packet_Processing_Performance">ResearchGate</a> – P8: P4 with predictable packet processing performance</li>
+          <li><a href="https://github.com/p4lang/">GitHub</a> – P4 language consortium</li>
+          <li><a href="https://www.youtube.com/@P4-project">YouTube</a> – P4 Project</li>
+          <li><a href="https://www.youtube.com/watch?v=UEMAvXXNWsY">YouTube</a> – Introduction to network programming with P4</li>
+          <li><a href="http://143.54.25.88/index.php/sbrcminicursos/article/view/1769/1742">SBRC Minicursos</a> – Introdução à Linguagem P4 - Teoria e Prática</li>
+        </ul>
+      </div>
+    </section><!-- /10. Referências -->
+
+    <!-- Team Section -->
+    <section id="team" class="team section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Grupo 5</h2>
+      </div>
+
+      <div class="container">
+        <div class="row gy-4">
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="team-member d-flex align-items-start">
+              <div class="member-info">
+                <h4>Daniel Emílio K Provenzano</h4>
+                <span>Estudante de Engenharia de Computação e Informação</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="team-member d-flex align-items-start">
+              <div class="member-info">
+                <h4>Igor Valamiel P Nunes</h4>
+                <span>Estudante de Engenharia de Computação e Informação</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="team-member d-flex align-items-start">
+              <div class="member-info">
+                <h4>Nicolas Juliano T Campos</h4>
+                <span>Estudante de Engenharia de Computação e Informação</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- /Team Section -->
+
+  </main>
+
+  <footer id="footer" class="footer">
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-12 col-md-6 footer-about" style="text-align: center;">
+          <a href="index.html" class="align-items-center">
+            <span class="sitename">Linguagem P4 - Redes de Computadores</span>
+          </a>
+          <div class="footer-contact pt-3">
+            <p>UFRJ Campus Fundão CT</p>
+            <p>Cidade Universitária, Ilha do Fundão</p>
+            <p>Rio de Janeiro, RJ, Brazil</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">Arsha</strong> <span>All Rights Reserved</span></p>
+      <div class="credits">
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
