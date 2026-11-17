@@ -220,12 +220,56 @@
           <div class="col-xl-12" data-aos="fade-up" data-aos-delay="100">
             <div class="service-item position-relative">
               <h4>3.1. Pipeline de Processamento (Parser, Ingress, Deparser, Egress)</h4>
+              <p>Um pipeline P4 comum consiste de 4 etapas, das quais os dados são transportados por um barramento de metadados (<i>metadata bus</i>):</p>
+              <ul>
+                <li> <b>Parser (Analisador)</b>
+                  <ul>
+                    <li>Quando um pacote chega a uma máquina, ele é apenas uma sequência e bits e bytes;</li>
+                    <li>O <i>Parser</i> analisa esses bits usando máquinas de estados para identificar e extrair cabeçalhos de pacotes (como Ethernet, IPv4, TCP, etc), para representá-los em estruturas organizadas;</li>
+                    <li>Além disso, ele marca o cabeçalho como válido para que as próximas etapas possam continuar a analisar e modificar o pacote.</li>
+                  </ul>
+                </li>
+                <li> <b>Ingress Pipeline (Processamento de Entrada)</b>
+                  <ul>
+                    <li>Após passar pelo <i>Parser</i>, o cabeçalho do pacote passa pelo processamento de entrada (<i>Ingress</i>);</li>
+                    <li>O processo de entrada consiste em tabelas de partida paralelas ou sequenciais, e lógica de controle; </li>
+                    <li>Essa etapa é basicamente um sistema lógico de switches: ele combina campos dos cabeçalhos, fazendo decisões rotativas, configurando portas de entrada ou descartando/duplicando pacotes.</li>
+                  </ul>
+                </li>
+                <li> <b>Egress Pipeline (Processamento de Saída)</b>
+                  <ul>
+                    <li>Essa etapa é executada logo antes do pacote sair por alguma porta;</li>
+                    <li>Se um pacote foi propagado e multiplas cópias dele foram geradas, o <i>Egress</i> roda uma vez para cada cópia;</li>
+                    <li>Sua função principal é relaizar modificações antes do pacote passar pela porta, como remoção de tags VLAN, recálculo do checksum ou adicionando cabeçalhos de encapsulamento.</li>
+                  </ul>
+                </li>
+                <li> <b>Deparser (Desanalisador)</b>
+                  <ul>
+                    <li>Funciona exatamente da forma contrária ao <i>Parser</i>;</li>
+                    <li>Essa etapa pega o pacote modificado e o codifica de volta para sequencias cruas de bits e bytes para ser retransmitido.</li>
+                  </ul>
+                </li>
+              </ul>
+              Obs:
+              <ul>
+                <li> <b>Queuing / Traffic Manager (Processo entre a Entrada e a Saída de pacotes)</b>
+                  <ul>
+                    <li>Fica entre as etapas <i>Ingress</i> e <i>Egress</i>. Aqui é onde o pipeline lida com fila de pacotes, agendamento e ropagação de pacotes em multicast ou inundação.</li>
+                  </ul>
+                </li>
+                <li> <b>Metadata Bus</b>
+                  <ul>
+                    <li>É responsável por transportar, entre as etapas, os dados que estão sendo processados (ex.: cálculos intermediários, sinais de entrada e saída, métrica das portas, etc).</li>
+                  </ul>
+                </li>
+              </ul>
             </div>
           </div>
 
           <div class="col-xl-12" data-aos="fade-up" data-aos-delay="200">
             <div class="service-item position-relative">
               <h4>3.2. Modelos de Arquitetura (V1Model e PSA)</h4>
+              <p></p>
             </div>
           </div>
 
