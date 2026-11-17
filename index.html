@@ -269,7 +269,17 @@
           <div class="col-xl-12" data-aos="fade-up" data-aos-delay="200">
             <div class="service-item position-relative">
               <h4>3.2. Modelos de Arquitetura (V1Model e PSA)</h4>
-              <p></p>
+              <p>No P4 (especificamente iniciando a partir da versão P_16), para respeitar a premissa de indipendência de máquina, a linguagem reduz a informação para caber às capacidades do hardware alvo usando um modelo de arquitetura (Architechture Module).</p>
+              <ul> <b>V1Model (Modelo versão 1)</b>
+                <li>Originalmente, foi desenhado para ser a arquitetura padrão para o <i>bmv2 (Behavior Model v2)</i>, software baseado em referencias de switches;</li>
+                <li>Ele modela uma arquitetura clássida de switch inclusindo um único <i>parser</i>, <i>ingress control</i>, bloco de replicação/fila de pacotes, <i>egress control</i> e um <i>deparser</i>;</li>
+                <li>Devido a sua simplicidade, esse modelo é o mais comum de ser usado em tutoriais P4 e em laboratórios educativos.</li>
+              </ul>
+              <ul> <b>PSA (Portable switch Architecture)</b>
+                <li>Padronizado pela Associação da Linguagem P4 (<i>P4 Language Consortium)</i>, esse modelo busca prover uma arquitetura uniforme que serve para diferentes tipos de hardware de alto desempenho (como ASICs, FPGAs e software targets);</li>
+                <li>PSA define um conjunto preciso de operações iniciais padronizadas, estruturas padrão de metadados (como <i>timestamping</i>, profundidade de fila e tamanho de pacotes) e das duplas <i>ingress/egress</i> e <i>parser/deparser</i>;</li>
+                <li>Esse modelo permite desenvolvedores escreverem programas P4 que são verdadeiramente aplicáveis em chips de diferentes fabricantes sem ter que modificar a arquitetura do pipeline.</li>
+              </ul>
             </div>
           </div>
 
