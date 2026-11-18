@@ -115,7 +115,7 @@
               <p>Esse projeto é open source, gerenciado pela organização p4lang, cuja documentação está toda no github (https://github.com/p4lang/), incluindo:</p>
               <ul>
                 <li>p4c: compilador referência para o P4_16</li>
-                <li>behavioral-model (bmv2): target de software de referência.</li>
+                <li>behavioral-model (bmv2): <i>target</i> de software de referência.</li>
                 <li>ptf (<i>Packet Test Framework</i>): framework de testes escrito em Python.</li>
               </ul>
             </div>
@@ -161,7 +161,7 @@
           <div class="col-xl-12" data-aos="fade-up" data-aos-delay="200">
             <div class="service-item position-relative">
               <h4>2.2. Independência de Target (Hardware)</h4>
-              <p>A partir do momento em que se têm dispositivos de hardware programáveis, não é mais necessário para o engenheiro de rede conhecer os detalhes específicos de cada chip, pois esse trabalho passa a ser do compilador p4c. A partir do programa, ele gera a configuração para o target escolhido e também os metadados da API em tempo de execução. Os alvos (targets) podem ser divididos em:</p>
+              <p>A partir do momento em que se têm dispositivos de hardware programáveis, não é mais necessário para o engenheiro de rede conhecer os detalhes específicos de cada chip, pois esse trabalho passa a ser do compilador p4c. A partir do programa, ele gera a configuração para o <i>target</i> escolhido e também os metadados da API em tempo de execução. Os alvos podem ser divididos em:</p>
               <ul>
                 <li>Hardwares programáveis: FPGAS, ASICs programáveis, etc</li>
                 <li>Ambientes de software: processadores x86, targets baseados em DPDK, etc</li>
@@ -172,7 +172,7 @@
           <div class="col-xl-12" data-aos="fade-up" data-aos-delay="300">
             <div class="service-item position-relative">
               <h4>2.3. Reconfigurabilidade em Campo</h4>
-              <p>A possibilidade de programar sobre a rede possibilita que o administrador possa carregar um novo binário P4 em algum target que já está funcionando, permitindo:</p>
+              <p>A possibilidade de programar sobre a rede possibilita que o administrador possa carregar um novo binário P4 em algum <i>target</i> que já está funcionando, permitindo:</p>
               <ul>
                 <li>Atualizar a rede para suportar novos protocolos de encapsulamento</li>
                 <li>Redirecionar recursos de hardware</li>
@@ -271,7 +271,7 @@
               <h4>3.2. Modelos de Arquitetura (V1Model e PSA)</h4>
               <p>No P4 (especificamente iniciando a partir da versão P_16), para respeitar a premissa de indipendência de máquina, a linguagem reduz a informação para caber às capacidades do hardware alvo usando um modelo de arquitetura (Architechture Module).</p>
               <ul> <b>V1Model (Modelo versão 1)</b>
-                <li>Originalmente, foi desenhado para ser a arquitetura padrão para o <i>bmv2 (Behavior Model v2)</i>, software baseado em referencias de switches;</li>
+                <li>Originalmente, foi desenhado para ser a arquitetura padrão para o <i>BMv2 (Behavior Model v2)</i>, software baseado em referencias de switches;</li>
                 <li>Ele modela uma arquitetura clássida de switch inclusindo um único <i>parser</i>, <i>ingress control</i>, bloco de replicação/fila de pacotes, <i>egress control</i> e um <i>deparser</i>;</li>
                 <li>Devido a sua simplicidade, esse modelo é o mais comum de ser usado em tutoriais P4 e em laboratórios educativos.</li>
               </ul>
@@ -369,7 +369,7 @@
       <div class="container section-title" data-aos="fade-up">
         <h2>5. Integração com o Plano de Controle</h2>
         <p>
-          Um programa P4 define apenas a estrutura do plano de dados, isto é, como o switch deve processar pacotes, mas não contém as rotas ou regras específicas da rede. A responsabilidade de preencher, atualizar e remover entradas nas tabelas continua pertencendo ao Plano de Controle.
+          Um programa P4 define apenas a estrutura do plano de dados, isto é, como o switch deve processar pacotes, mas não contém as rotas ou regras específicas da rede. A modificação das tabelas, como ao preencher, atualizar ou remover entradas, é feita pelo Plano de Controle.
         </p>
       </div>
 
@@ -381,8 +381,8 @@
               <h4>5.1. Separação Plano de Dados vs. Plano de Controle</h4>
               <p>Nas redes definidas por software (SDN) programáveis com P4, é feita uma divisão de responsabilidades:</p>
               <ul>
-                <li>Plano de Dados (Data Plane): Opera no hardware ou switch virtual em altíssima velocidade. Executa apenas o pipeline definido em P4, como extração de cabeçalhos, consultas em tabelas e execução de ações, sem tomar decisões globais de topologia.</li>
-                <li>Plano de Controle (Control Plane): Opera em software, em um controlador SDN centralizado ou em uma CPU local do switch. Ele executa protocolos de roteamento (como BGP e OSPF), descobre a topologia da rede e popula as tabelas do plano de dados com as regras apropriadas.</li>
+                <li>Plano de Dados (<i>Data Plane</i>): Opera no hardware ou switch virtual em altíssima velocidade. Executa apenas o pipeline definido em P4, como extração de cabeçalhos, consultas em tabelas e execução de ações, sem tomar decisões globais de topologia.</li>
+                <li>Plano de Controle (<i>Control Plane</i>): Opera em software, em um controlador SDN centralizado ou em uma CPU local do switch. Ele executa protocolos de roteamento (como BGP e OSPF), descobre a topologia da rede e popula as tabelas do plano de dados com as regras apropriadas.</li>
               </ul>
             </div>
           </div>
@@ -394,7 +394,7 @@
                 Para conectar os dois planos sem depender de protocolos proprietários ou engessados, como ocorria com versões antigas do OpenFlow, foi criada a P4Runtime API.
               </p>
               <p>
-                Durante a compilação do código P4, o compilador gera automaticamente um arquivo de metadados chamado P4Info, que funciona como um contrato descrevendo todas as tabelas, chaves, ações, contadores e registradores do programa. Utilizando o protocolo gRPC, sobre HTTP/2, e mensagens Protocol Buffers, o controlador lê o P4Info e passa a gerenciar o switch em tempo de execução. Se o engenheiro de rede criar um novo protocolo em P4 e recompilar o programa, a API P4Runtime se adapta automaticamente às novas tabelas sem exigir alterações no protocolo de comunicação.
+                Durante a compilação do código P4, o compilador gera automaticamente um arquivo de metadados chamado P4Info, que descreve todas as tabelas, chaves, ações, contadores e registradores do programa. Utilizando o protocolo gRPC, sobre HTTP/2, e mensagens <i>Protocol Buffers</i>, o controlador lê o P4Info e passa a gerenciar o switch em tempo de execução. Se for criado um novo protocolo em P4, a API se adapta automaticamente às novas tabelas sem exigir alterações no protocolo de comunicação, desde que o programa seja recompilado.
               </p>
             </div>
           </div>
@@ -408,7 +408,7 @@
       <div class="container section-title" data-aos="fade-up">
         <h2>6. Ferramentas e Ecossistema de Desenvolvimento</h2>
         <p>
-          O ecossistema P4 é mantido como código aberto pela comunidade P4 Language Consortium, oferecendo ferramentas completas desde a compilação até a simulação e implementação em hardware real.
+          O ecossistema P4 é mantido como código aberto pela comunidade <i>P4 Language Consortium</i>, oferecendo ferramentas completas desde a compilação até a simulação e implementação em hardware real.
         </p>
       </div>
 
@@ -419,10 +419,10 @@
             <div class="service-item position-relative">
               <h4>6.1. Compilador P4 (p4c)</h4>
               <p>
-                O p4c é o compilador de referência oficial para a linguagem P4_16 desenvolvido em C++. Sua arquitetura é dividida em um frontend, que valida a sintaxe e a semântica do código .p4 independentemente do hardware, e múltiplos backends específicos para cada dispositivo alvo (target). Ao compilar um programa, o p4c gera dois artefatos principais:
+                O p4c é o compilador de referência oficial para a linguagem P4_16 desenvolvido em C++. Sua arquitetura é dividida em um frontend, que valida a sintaxe e a semântica do código .p4 independentemente do hardware, e múltiplos backends específicos para cada dispositivo alvo (<i>target</i>). Ao compilar um programa, o p4c gera dois artefatos principais:
               </p>
               <ol>
-                <li>O binário ou arquivo de configuração específico para o target (ex.: arquivo JSON para emuladores ou microcódigo para chips programáveis).</li>
+                <li>O binário ou arquivo de configuração específico para o <i>target</i> (ex.: arquivo JSON para emuladores ou microcódigo para chips programáveis).</li>
                 <li>O arquivo P4Info, utilizado pela API P4Runtime para integrar o plano de controle.</li>
               </ol>
             </div>
@@ -433,7 +433,7 @@
               <h4>6.2. Emuladores e Switches Virtuais</h4>
               <p>Para testar e validar programas P4 sem precisar de switches físicos caros, utiliza-se amplamente um ambiente virtual composto por duas ferramentas:</p>
               <ul>
-                <li>BMv2 (Behavioral Model version 2): É o switch virtual de referência escrito em C++. Ele lê o arquivo JSON gerado pelo p4c e simula fielmente o comportamento de um pipeline P4, incluindo a arquitetura v1model, gerando logs detalhados de cada etapa do processamento de pacotes.</li>
+                <li>BMv2 (<i>Behavioral Model version 2</i>): É o switch virtual de referência escrito em C++. Ele lê o arquivo JSON gerado pelo p4c e simula fielmente o comportamento de um pipeline P4, incluindo a arquitetura v1model, gerando logs detalhados de cada etapa do processamento de pacotes.</li>
                 <li>Mininet: Emulador que cria redes virtuais completas com hosts, switches BMv2 e enlaces dentro de uma única máquina Linux. Através dele, os desenvolvedores conseguem injetar tráfego real usando ferramentas como ping, iperf e scripts Python com a biblioteca Scapy, ideal para forjar pacotes com cabeçalhos customizados, e validar o comportamento da rede em tempo real.</li>
               </ul>
             </div>
@@ -467,7 +467,7 @@
             <div class="service-item position-relative">
               <h4>7.1. In-Band Network Telemetry (INT)</h4>
               <p>
-                O INT (In-Band Network Telemetry) é uma técnica que permite que os dispositivos da rede coletem os dados sobre o caminho percorrido pelo pacote. Cada switch compatível com INT insere através do cabeçalho customizado metadados (ID do Switch, timestamp, latência de salto e profundidade de fila) e o último switch "sink" extrai os dados.
+                O INT (<i>In-Band Network Telemetry</i>) é uma técnica que permite que os dispositivos da rede coletem os dados sobre o caminho percorrido pelo pacote. Cada switch compatível com INT insere através do cabeçalho customizado metadados (ID do Switch, <i>timestamp</i>, latência de salto e profundidade de fila) e o último switch "sink" extrai os dados.
               </p>
               <p>
                 Essa técnica se sobressai no P4 pois o parser/deparser programável permite definir o formato do cabeçalho INT e manipulá-lo na velocidade de linha. Dessa forma, obtém-se a visibilidade por pacote em tempo real e se torna possível identificar gargalos e realizar a análise da rede em tempo real.
@@ -529,7 +529,7 @@
               <h4>8.1. Vantagens do P4</h4>
               <ul>
                 <li>Flexibilidade: o desenvolvedor define como os pacotes são processados.</li>
-                <li>Independência de protocolo e de target (mesmo código para diferentes hardwares, em teoria).</li>
+                <li>Independência de protocolo e de <i>target</i> (mesmo código para diferentes hardwares, em teoria).</li>
                 <li>Inovação mais rápida: novas funcionalidades sem esperar o ciclo de fabricantes.</li>
                 <li>Reconfiguração em campo, sem trocar hardware.</li>
                 <li>Desempenho de linha (Tbps) com programabilidade.</li>
