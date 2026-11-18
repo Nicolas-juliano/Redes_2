@@ -163,7 +163,7 @@
               <h4>2.2. Independência de Target (Hardware)</h4>
               <p>A partir do momento em que se têm dispositivos de hardware programáveis, não é mais necessário para o engenheiro de rede conhecer os detalhes específicos de cada chip, pois esse trabalho passa a ser do compilador p4c. A partir do programa, ele gera a configuração para o <i>target</i> escolhido e também os metadados da API em tempo de execução. Os alvos podem ser divididos em:</p>
               <ul>
-                <li>Hardwares programáveis: FPGAS, ASICs programáveis, etc</li>
+                <li>Hardwares programáveis: FPGAs, ASICs programáveis, etc</li>
                 <li>Ambientes de software: processadores x86, targets baseados em DPDK, etc</li>
               </ul>
             </div>
@@ -269,7 +269,7 @@
           <div class="col-xl-12" data-aos="fade-up" data-aos-delay="200">
             <div class="service-item position-relative">
               <h4>3.2. Modelos de Arquitetura (V1Model e PSA)</h4>
-              <p>No P4 (especificamente iniciando a partir da versão P_16), para respeitar a premissa de indipendência de máquina, a linguagem reduz a informação para caber às capacidades do hardware alvo usando um modelo de arquitetura (Architechture Module).</p>
+              <p>No P4 (especificamente iniciando a partir da versão P4_16), para respeitar a premissa de indipendência de máquina, a linguagem reduz a informação para caber às capacidades do hardware alvo usando um modelo de arquitetura (Architecture Model).</p>
               <ul> <b>V1Model (Modelo versão 1)</b>
                 <li>Originalmente, foi desenhado para ser a arquitetura padrão para o <i>BMv2 (Behavior Model v2)</i>, software baseado em referencias de switches;</li>
                 <li>Ele modela uma arquitetura clássida de switch inclusindo um único <i>parser</i>, <i>ingress control</i>, bloco de replicação/fila de pacotes, <i>egress control</i> e um <i>deparser</i>;</li>
@@ -353,9 +353,9 @@
                 Por padrão, o processamento de cada pacote em P4 é <i>stateless</i>, ou seja, o switch não retém memória entre um pacote e outro. Para implementar funcionalidades com estado (<i>stateful</i>), a linguagem utiliza objetos externos fornecidos pela arquitetura:
               </p>
               <ul>
-                <li>Contadores (<i>Counters</i>): Armazenam estatísticas de quantidade de pacotes e volume de bytes associados a regras de tabelas ou índices específicos, permitindo que o plano de controle monitore o tráfego.</li>
-                <li>Medidores (<i>Meters</i>): Medem a taxa de chegada de pacotes em tempo real, usando algoritmos como Token Bucket, classificando o tráfego em verde, amarelo ou vermelho para aplicar políticas de Qualidade de Serviço (QoS) e descarte seletivo.</li>
-                <li>Registradores (<i>Registers</i>): São espaços de memória genéricos de leitura e escrita acessíveis diretamente pelo plano de dados durante a passagem do pacote. Permitem guardar variáveis persistentes entre pacotes consecutivos, viabilizando algoritmos avançados como detecção de fluxos pesados, heavy hitters, balanceamento de carga dinâmico e mitigação autônoma de ataques.</li>
+                <li>Contadores (<i>Counters</i>): Armazenam estatísticas de quantidade de pacotes e volume de bytes para monitoramento pelo plano de controle. Podem ser diretos (<i>direct_counter</i>), vinculados automaticamente a cada regra de uma tabela, ou indiretos (<i>counter</i>), estruturados como vetores indexados explicitamente dentro das ações e permitindo que múltiplas regras compartilhem a mesma métrica.</li>
+                <li>Medidores (<i>Meters</i>): Medem a taxa de chegada de pacotes em tempo real, usando algoritmos como Token Bucket, classificando o tráfego em verde, amarelo ou vermelho para aplicar políticas de Qualidade de Serviço (QoS) e descarte seletivo.Assim como os contadores, dividem-se em diretos (<i>direct_meter</i>), acionados por regra da tabela, e indiretos (<i>meter</i>), acessados por índice explícito.</li>
+                <li>Registradores (<i>Registers</i>): São vetores de memória genéricos de tamanho fixo, indexados explicitamente, que permitem leitura e escrita atômica diretamente pelo plano de dados durante a passagem do pacote. Permitem guardar variáveis persistentes entre pacotes consecutivos, viabilizando algoritmos avançados como detecção de fluxos pesados, heavy hitters, balanceamento de carga dinâmico e mitigação autônoma de ataques.</li>
               </ul>
             </div>
           </div>
@@ -419,7 +419,7 @@
             <div class="service-item position-relative">
               <h4>6.1. Compilador P4 (p4c)</h4>
               <p>
-                O p4c é o compilador de referência oficial para a linguagem P4_16 desenvolvido em C++. Sua arquitetura é dividida em um frontend, que valida a sintaxe e a semântica do código .p4 independentemente do hardware, e múltiplos backends específicos para cada dispositivo alvo (<i>target</i>). Ao compilar um programa, o p4c gera dois artefatos principais:
+                O p4c é o compilador de referência oficial para a linguagem P4_16 desenvolvido em C++. Sua arquitetura é dividida em um frontend, que valida a sintaxe e a semântica do código .p4 independentemente do hardware,um midend, que realiza otimizações independentes de alvo e transformações na representação intermediária (IR), e múltiplos backends específicos para cada dispositivo alvo (<i>target</i>). Ao compilar um programa, o p4c gera dois artefatos principais:
               </p>
               <ol>
                 <li>O binário ou arquivo de configuração específico para o <i>target</i> (ex.: arquivo JSON para emuladores ou microcódigo para chips programáveis).</li>
@@ -544,7 +544,7 @@
               <h4>8.2. Desafios e Limitações Técnicas</h4>
               <ul>
                 <li>Restrições de Hardware: Nem todo dispositivo aceita todas as operações, larguras de campos ou recursos da linguagem.</li>
-                <li>Portabilidade Limitada: Um programa pode precisar de adaptações para outra arquitetura, mesmo que ambos os equipamentos sejam programáveis em P4. (V1 Model vs. PSA vs. arquiteturas específicas)</li>
+                <li>Portabilidade Limitada: Um programa pode precisar de adaptações para outra arquitetura, mesmo que ambos os equipamentos sejam programáveis em P4. (V1Model vs. PSA vs. arquiteturas específicas)</li>
                 <li>Dificuldade de desenvolvimento: É preciso compreender protocolos, pipelines, tabelas, arquitetura e restrições de compilação.</li>
                 <li>Depuração e manutenção: Importante testar o comportamento dos pacotes, a configuração das tabelas e o funcionamento em diferentes ambientes.</li>
               </ul>
