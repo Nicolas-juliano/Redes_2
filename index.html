@@ -331,7 +331,7 @@
               </p>
               <ul>
                 <li>exact: Exige que o valor extraído do pacote seja 100% idêntico ao valor armazenado na entrada da tabela. Muito usado para endereços MAC ou portas TCP/UDP.</li>
-                <li>lpm (<i>Longest Prefix Match</i>): Busca o prefixo de bits mais longo que coincide com o valor do pacote. É o padrão utilizado para tabelas de roteamento IPv4 e IPv6 baseadas em máscaras de sub-rede.</li>
+                <li>LPM (<i>Longest Prefix Match</i>): Busca o prefixo de bits mais longo que coincide com o valor do pacote. É o padrão utilizado para tabelas de roteamento IPv4 e IPv6 baseadas em máscaras de sub-rede.</li>
                 <li>Ternária (<i>ternary</i>): Utiliza uma máscara de bits arbitrária (<i>wildcard</i>) onde cada bit pode ser comparado como 0, 1 ou "indiferente" (<i>don't care</i>). É amplamente empregada em Listas de Controle de Acesso (ACLs) e regras de firewall.</li>
               </ul>
             </div>
@@ -350,7 +350,7 @@
             <div class="service-item position-relative">
               <h4>4.5. Estado no Plano de Dados</h4>
               <p>
-                Por padrão, o processamento de cada pacote em P4 é stateless, ou seja, o switch não retém memória entre um pacote e outro. Para implementar funcionalidades com estado (stateful), a linguagem utiliza objetos externos fornecidos pela arquitetura:
+                Por padrão, o processamento de cada pacote em P4 é <i>stateless</i>, ou seja, o switch não retém memória entre um pacote e outro. Para implementar funcionalidades com estado (<i>stateful</i>), a linguagem utiliza objetos externos fornecidos pela arquitetura:
               </p>
               <ul>
                 <li>Contadores (<i>Counters</i>): Armazenam estatísticas de quantidade de pacotes e volume de bytes associados a regras de tabelas ou índices específicos, permitindo que o plano de controle monitore o tráfego.</li>
