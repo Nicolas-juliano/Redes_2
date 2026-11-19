@@ -151,9 +151,9 @@
               <h4>2.1. Independência de Protocolo</h4>
               <p>Um processador de pacotes programado em P4 não conhece nenhum protocolo. Para ensiná-lo a lidar com protocolos (como IPv4, IPv6, TCP, Ethernet, etc.), o programador precisa definir:</p>
               <ul>
-                <li>Headers: Indicando a disposição dos campos de cada cabeçalho em bits.</li>
-                <li>Parser: Uma máquina de estados finitos que identifica quais cabeçalhos e em qual ordem estão presentes, a partir dos bits do pacote.</li>
-                <li>Tabelas match-action: Determinação de quais são as lógicas de busca e quais ações devem ser executadas pela rede.</li>
+                <li>Management Plane: responsável pela configuração, administração e monitoramento da infraestrutura de rede.</li>
+                <li>Control Plane: responsável pelas decisões de controle, como cálculo de rotas e configuração das tabelas de encaminhamento.</li>
+                <li>Data Plane: responsável pelo processamento e encaminhamento dos pacotes conforme as regras configuradas.</li>
               </ul>
             </div>
           </div>
@@ -161,7 +161,7 @@
           <div class="col-xl-12" data-aos="fade-up" data-aos-delay="200">
             <div class="service-item position-relative">
               <h4>2.2. Independência de Target (Hardware)</h4>
-              <p>A partir do momento em que se têm dispositivos de hardware programáveis, não é mais necessário para o engenheiro de rede conhecer os detalhes específicos de cada chip, pois esse trabalho passa a ser do compilador p4c. A partir do programa, ele gera a configuração para o <i>target</i> escolhido e também os metadados da API em tempo de execução. Os alvos podem ser divididos em:</p>
+              <p>A independência de target permite que um mesmo programa P4 seja direcionado a diferentes arquiteturas de hardware ou software. Entretanto, cada target possui características e limitações próprias, exigindo um backend de compilação compatível e, em alguns casos, ferramentas específicas do fabricante. Por isso, a portabilidade não quer dizer que o mesmo programa pode executado em qualquer dispositivo sem ter que realizar adaptações. Os alvos podem ser divididos em:</p>
               <ul>
                 <li>Hardwares programáveis: FPGAs, ASICs programáveis, etc</li>
                 <li>Ambientes de software: processadores x86, targets baseados em DPDK, etc</li>
@@ -172,7 +172,7 @@
           <div class="col-xl-12" data-aos="fade-up" data-aos-delay="300">
             <div class="service-item position-relative">
               <h4>2.3. Reconfigurabilidade em Campo</h4>
-              <p>A possibilidade de programar sobre a rede possibilita que o administrador possa carregar um novo binário P4 em algum <i>target</i> que já está funcionando, permitindo:</p>
+              <p>A possibilidade de programar sobre a rede possibilita que o administrador possa carregar um novo programa P4, previamente compilado para o target específico, permitindo:</p>
               <ul>
                 <li>Atualizar a rede para suportar novos protocolos de encapsulamento</li>
                 <li>Redirecionar recursos de hardware</li>
@@ -187,16 +187,16 @@
               <p>A linguagem P4 começou com a versão P4_14, mas depois foi atualizada para uma versão mais moderna e modular, a P4_16.</p>
               <p>P4_14:</p>
               <ul>
+                <li>Execução: As instruções primitivas dentro de uma mesma action possuem semântica de execução simultânea. Entretanto, as chamadas de tabelas no bloco control seguem uma ordem sequencial.</li>
                 <li>Compilador: Usa o p4-hlir (feito em Python)</li>
-                <li>Execuções de ações: Ações executadas em paralelo por padrão</li>
                 <li>Deparser: Implícito, deduzido de forma inversa ao parser</li>
                 <li>Arquitetura: Preso a um modelo genérico de hardware</li>
                 <li>Tipagem: Tipagem básica</li>
               </ul>
               <p>P4_16:</p>
               <ul>
+                <li>Execução: As instruções dentro de uma action possuem semântica sequencial, assim como o fluxo de controle entre operações.</li>
                 <li>Compilador: Usa o p4c (feito em C++)</li>
-                <li>Execuções de ações: Ações que são executadas em blocos de controle estritamente sequenciais</li>
                 <li>Deparser: Explícito, o programador escreve em um bloco como o pacote deve ser remontado</li>
                 <li>Arquitetura: Separa a linguagem do modelo de arquitetura (V1Model, PSA)</li>
                 <li>Tipagem: Tem um sistema de tipos forte e expressivo</li>
@@ -232,8 +232,9 @@
                 <li> <b>Ingress Pipeline (Processamento de Entrada)</b>
                   <ul>
                     <li>Após passar pelo <i>Parser</i>, o cabeçalho do pacote passa pelo processamento de entrada (<i>Ingress</i>);</li>
-                    <li>O processo de entrada consiste em tabelas de partida paralelas ou sequenciais, e lógica de controle; </li>
-                    <li>Essa etapa é basicamente um sistema lógico de switches: ele combina campos dos cabeçalhos, fazendo decisões rotativas, configurando portas de entrada ou descartando/duplicando pacotes.</li>
+                    <li>O processo de entrada consiste em tabelas Match-Action e lógica de controle; </li>
+                    <li>Essas tabelas podem apresentar dependências entre si, determinando a ordem lógica de execução;</li>
+                    <li>Quando não existem dependências, o compilador pode explorar oportunidades de paralelismo na implementação física do pipeline.</li>
                   </ul>
                 </li>
                 <li> <b>Egress Pipeline (Processamento de Saída)</b>
@@ -269,16 +270,20 @@
           <div class="col-xl-12" data-aos="fade-up" data-aos-delay="200">
             <div class="service-item position-relative">
               <h4>3.2. Modelos de Arquitetura (V1Model e PSA)</h4>
-              <p>No P4 (especificamente iniciando a partir da versão P4_16), para respeitar a premissa de indipendência de máquina, a linguagem reduz a informação para caber às capacidades do hardware alvo usando um modelo de arquitetura (Architecture Model).</p>
+              <p>No P4 (especificamente na versão P4_16), a linguagem é separada do modelo de arquitetura do dispositivo. Isso significa que o programa define como os pacotes devem ser processados, enquanto a arquitetura determina quais
+                blocos de processamento estão disponíveis e como eles são organizados no pipeline. Dessa forma, o mesmo programa pode ser adaptado para diferentes arquiteturas, respeitando as características de cada target.</p>
               <ul> <b>V1Model (Modelo versão 1)</b>
-                <li>Originalmente, foi desenhado para ser a arquitetura padrão para o <i>BMv2 (Behavior Model v2)</i>, software baseado em referencias de switches;</li>
-                <li>Ele modela uma arquitetura clássida de switch inclusindo um único <i>parser</i>, <i>ingress control</i>, bloco de replicação/fila de pacotes, <i>egress control</i> e um <i>deparser</i>;</li>
-                <li>Devido a sua simplicidade, esse modelo é o mais comum de ser usado em tutoriais P4 e em laboratórios educativos.</li>
+                <li>Originalmente, foi desenvolvido para ser a arquitetura padrão do BMv2 (Behavioral Model version 2), um switch virtual utilizado como referência para o desenvolvimento e teste de programas P4;</li>
+                <li>Ele modela uma arquitetura clássica de switch, composta por um único parser, blocos de verificação e cálculo de checksum (VerifyChecksum e ComputeChecksum), controles de entrada e saída (Ingress e Egress) e um deparser;</li>
+                <li>Entre os blocos de Ingress e Egress, existe um gerenciador de tráfego (Traffic Manager), responsável por funções como enfileiramento e replicação de pacotes;</li>
+                <li>Devido à sua simplicidade e ampla utilização no BMv2, esse modelo é bastante comum em tutoriais P4 e laboratórios educativos.</li>
               </ul>
               <ul> <b>PSA (Portable switch Architecture)</b>
-                <li>Padronizado pela Associação da Linguagem P4 (<i>P4 Language Consortium)</i>, esse modelo busca prover uma arquitetura uniforme que serve para diferentes tipos de hardware de alto desempenho (como ASICs, FPGAs e software targets);</li>
-                <li>PSA define um conjunto preciso de operações iniciais padronizadas, estruturas padrão de metadados (como <i>timestamping</i>, profundidade de fila e tamanho de pacotes) e das duplas <i>ingress/egress</i> e <i>parser/deparser</i>;</li>
-                <li>Esse modelo permite desenvolvedores escreverem programas P4 que são verdadeiramente aplicáveis em chips de diferentes fabricantes sem ter que modificar a arquitetura do pipeline.</li>
+                <li>Padronizada pelo P4 Language Consortium, essa arquitetura busca estabelecer um modelo comum para switches programáveis, facilitando a portabilidade de programas entre diferentes implementações compatíveis;</li>
+                <li>Diferentemente da V1Model, a PSA define dois conjuntos de processamento: um para entrada (Ingress) e outro para saída (Egress), cada um com seu próprio parser, bloco de controle e deparse</li>
+                <li>O fluxo de processamento segue a seguinte estrutura: Ingress Parser → Ingress Control → Ingress Deparser → Traffic Manager → Egress Parser → Egress Control → Egress Deparser;</li>
+                <li>A PSA também padroniza estruturas de metadados e operações, como informações de timestamp, profundidade das filas e tamanho dos pacotes;</li>
+                <li>Embora facilite a portabilidade, sua utilização ainda depende da compatibilidade do target com a arquitetura, podendo existir limitações e adaptações específicas de cada implementação.</li>
               </ul>
             </div>
           </div>
@@ -624,45 +629,45 @@
 
               <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
                 <i class="faq-icon bi bi-question-circle"></i>
-                <h3>1. </h3>
+                <h3>1. Quais as filosofias da linguagem P4?</h3>
                 <div class="faq-content">
-                  <p></p>
+                  <p>Independência de protocolo, independência de arquitetura (target) e reconfigurabilidade em campo, permitindo maior flexibilidade e autonomia na programação do plano de dados.</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div>
 
               <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
                 <i class="faq-icon bi bi-question-circle"></i>
-                <h3>2. </h3>
+                <h3>2. Que tal algo como "Como a versão do P4_16 se sobresai em relacao a P4_14?</h3>
                 <div class="faq-content">
-                  <p></p>
+                  <p>A P4_16 apresenta tipagem mais forte, arquitetura modular, compilador mais moderno (p4c), deparser explícito e execução sequencial das instruções dentro das actions.</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div>
 
               <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
                 <i class="faq-icon bi bi-question-circle"></i>
-                <h3>3. </h3>
+                <h3>3. De que forma a aplicação do P4 pode auxiliar na proteção de dados?</h3>
                 <div class="faq-content">
-                  <p></p>
+                  <p>O P4 permite implementar mecanismos de segurança diretamente no plano de dados, como filtragem de pacotes, validação de cabeçalhos, monitoramento de tráfego e mitigação de ataques DDoS.</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div>
 
               <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
                 <i class="faq-icon bi bi-question-circle"></i>
-                <h3>4. </h3>
+                <h3>4. É possível testar um programa P4 com cabeçalhos de protocolo inventados do zero sem ter um switch físico programável?</h3>
                 <div class="faq-content">
-                  <p></p>
+                  <p>Sim, utilizando o BMv2 em conjunto com o Mininet e ferramentas como Scapy, é possível simular switches e testar protocolos personalizados sem hardware físico.</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div>
 
               <div class="faq-item" data-aos="fade-up" data-aos-delay="500">
                 <i class="faq-icon bi bi-question-circle"></i>
-                <h3>5. </h3>
+                <h3>5. Se P4 é independente de protocolo e de arquitetura, por que não funciona em qualquer switch?</h3>
                 <div class="faq-content">
-                  <p></p>
+                  <p>Porque cada dispositivo possui características, limitações e arquiteturas próprias, sendo necessário que o hardware ofereça suporte a P4 e que o programa seja compatível com seu respectivo target.</p>
                 </div>
                 <i class="faq-toggle bi bi-chevron-right"></i>
               </div>
