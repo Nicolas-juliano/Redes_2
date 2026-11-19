@@ -454,66 +454,70 @@
       </div>
     </section><!-- /6. Ferramentas e Ecossistema -->
 
-    <!-- 7. Casos de Uso e Aplicações -->
-    <section id="casos" class="services section">
-      <div class="container section-title" data-aos="fade-up">
-        <h2>7. Casos de Uso e Aplicações</h2>
-      </div>
 
-      <div class="container">
-        <div class="row gy-4">
+<!-- 7. Casos de Uso e Aplicações -->
+<section id="casos" class="services section">
+  <div class="container section-title" data-aos="fade-up">
+    <h2>7. Casos de Uso e Aplicações</h2>
+  </div>
 
-          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="100">
-            <div class="service-item position-relative">
-              <h4>7.1. In-Band Network Telemetry (INT)</h4>
-              <p>
-                O INT (<i>In-Band Network Telemetry</i>) é uma técnica que permite que os dispositivos da rede coletem os dados sobre o caminho percorrido pelo pacote. Cada switch compatível com INT insere através do cabeçalho customizado metadados (ID do Switch, <i>timestamp</i>, latência de salto e profundidade de fila) e o último switch "sink" extrai os dados.
-              </p>
-              <p>
-                Essa técnica se sobressai no P4 pois o parser/deparser programável permite definir o formato do cabeçalho INT e manipulá-lo na velocidade de linha. Dessa forma, obtém-se a visibilidade por pacote em tempo real e se torna possível identificar gargalos e realizar a análise da rede em tempo real.
-              </p>
-            </div>
-          </div>
+  <div class="container">
+    <div class="row gy-4">
 
-          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-item position-relative">
-              <h4>7.2. Criação de Protocolos Personalizados</h4>
-              <p>
-                A ideia principal da criação de protocolos personalizados é permitir que o dispositivo consiga processar formatos de dados não esperados pelo processamento tradicional esperado pelo switch. O programa P4 permite definir o campo dos cabeçalhos, como identificá-los e quais ações executar para cada pacote.
-              </p>
-              <p>
-                Algumas vantagens disso são que: por meio da criação desses protocolos é possível definir novos cabeçalhos e máquina de estados parser sem depender de um fabricante. Além disso, é possível testar e implementar novos comportamentos sem depender de uma atualização no hardware.
-              </p>
-            </div>
-          </div>
-
-          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="300">
-            <div class="service-item position-relative">
-              <h4>7.3. Segurança na Camada de Dados</h4>
-              <p>
-                O P4 tem um papel importante na segurança na camada de dados. O P4 permite aplicar políticas de segurança enquanto os dados atravessam a rede, além de proporcionar rápida identificação e bloqueio de um tráfego de rede indevido e de ataques maliciosos. A defesa ocorre dentro do switch sem ser necessário desvio de tráfego.
-              </p>
-              <p>
-                Por exemplo: o P4 permite programar o switch para que reconheça cabeçalhos específicos e aplicar algoritmos de criptografia diretamente nos pacotes de dados conforme ele passa pelo chip ASIC, sem reduzir a velocidade da rede. Outro cenário prático comum do uso do P4 na segurança é na defesa de DDoS e Injeção de pacotes, pois programas em P4 conseguem validar a integridade do cabeçalho e se estiver comprometido o switch descarta na borda da rede.
-              </p>
-            </div>
-          </div>
-
-          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="400">
-            <div class="service-item position-relative">
-              <h4>7.4. Offloading de Funções de Rede</h4>
-              <p>
-                A fim de reduzir a carga da CPU e aumentar o processamento total, quando implementada de forma correta o P4 permite transferir determinadas tarefas de processamento de pacotes da CPU para equipamentos especializados.
-              </p>
-              <p>
-                O P4 programa funções compatíveis a serem executadas no plano de dados de switches, NICs e outros dispositivos programáveis. Isso pode ser observado em exemplos como balanceamento de carga, cache em rede e funções de firewall, aumentando a vazão das CPU's e reduzindo latência.
-              </p>
-            </div>
-          </div>
-
+      <div class="col-xl-12" data-aos="fade-up" data-aos-delay="100">
+        <div class="service-item position-relative">
+          <h4>7.1. In-Band Network Telemetry (INT)</h4>
+          <p>
+            O INT (<i>In-Band Network Telemetry</i>) é uma técnica que permite que os dispositivos da rede coletem os dados sobre o caminho percorrido pelo pacote. Cada switch compatível com INT insere através do cabeçalho customizado metadados (ID do Switch, <i>timestamp</i>, latência de salto e profundidade de fila) e o último switch "sink" extrai os dados.
+          </p>
+          <p>
+            Essa técnica se sobressai no P4 pois o parser/deparser programável permite definir o formato do cabeçalho INT e manipulá-lo na velocidade de linha. Dessa forma, obtém-se a visibilidade por pacote em tempo real e se torna possível identificar gargalos e realizar a análise da rede em tempo real.
+          </p>
         </div>
       </div>
-    </section><!-- /7. Casos de Uso -->
+
+      <div class="col-xl-12" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-item position-relative">
+          <h4>7.2. Criação de Protocolos Personalizados</h4>
+          <p>
+            A ideia principal da criação de protocolos personalizados é permitir que o dispositivo consiga processar formatos de dados não esperados pelo processamento tradicional esperado pelo switch. O programa P4 permite definir o campo dos cabeçalhos, como identificá-los e quais ações executar para cada pacote.
+          </p>
+          <p>
+            Algumas vantagens disso são que: por meio da criação desses protocolos é possível definir novos cabeçalhos e máquina de estados parser sem depender de um fabricante. Além disso, é possível testar e implementar novos comportamentos sem depender de uma atualização no hardware.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-xl-12" data-aos="fade-up" data-aos-delay="300">
+        <div class="service-item position-relative">
+          <h4>7.3. Segurança na Camada de Dados</h4>
+          <p>
+            O P4 possui aplicações importantes na segurança de redes, permitindo implementar políticas de segurança diretamente no plano de dados dos dispositivos de rede. Isso possibilita a identificação e o bloqueio de tráfego suspeito enquanto os pacotes atravessam os switches, reduzindo a necessidade de encaminhar o tráfego para equipamentos externos para determinadas verificações.
+          </p>
+          <p>
+            Por exemplo, um switch programado com P4 pode reconhecer cabeçalhos específicos, validar a estrutura dos pacotes, verificar checksums e aplicar regras de filtragem. Outro cenário de aplicação é a mitigação de ataques DDoS, na qual o dispositivo pode monitorar padrões de tráfego, contabilizar pacotes e aplicar mecanismos de limitação de taxa (<i>rate limiting</i>), descartando ou restringindo tráfego que viole as políticas estabelecidas.
+          </p>
+          <p>
+            É importante destacar que essas funcionalidades dependem dos recursos disponíveis na arquitetura do hardware. Embora seja possível implementar determinadas verificações de integridade, a autenticação criptográfica e a criptografia dos pacotes não são capacidades garantidas pelo P4, exigindo suporte específico do dispositivo.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-xl-12" data-aos="fade-up" data-aos-delay="400">
+        <div class="service-item position-relative">
+          <h4>7.4. Offloading de Funções de Rede</h4>
+          <p>
+            A fim de reduzir a carga da CPU e aumentar o processamento total, quando implementada de forma correta o P4 permite transferir determinadas tarefas de processamento de pacotes da CPU para equipamentos especializados.
+          </p>
+          <p>
+            O P4 programa funções compatíveis a serem executadas no plano de dados de switches, NICs e outros dispositivos programáveis. Isso pode ser observado em exemplos como balanceamento de carga, cache em rede e funções de firewall, aumentando a vazão das CPU's e reduzindo latência.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section><!-- /7. Casos de Uso -->
 
     <!-- 8. Vantagens, Limitações e Tendências Futuras -->
     <section id="vantagens" class="services section">
@@ -567,45 +571,45 @@
       </div>
     </section><!-- /8. Vantagens, Limitações e Tendências -->
 
-    <!-- 9. Conclusão  -->
-    <section id="conclusao" class="services section">
-      <div class="container section-title" data-aos="fade-up">
-        <h2>9. Conclusão</h2>
-      </div>
+    <!-- 9. Conclusão -->
+<section id="conclusao" class="services section">
 
-      <div class="container">
-        <div class="row gy-4">
+  <div class="container section-title" data-aos="fade-up">
+    <h2>9. Conclusão</h2>
+  </div>
 
-          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="100">
-            <div class="service-item position-relative">
-              <h4>9.1. Síntese</h4>
-            </div>
-          </div>
+  <div class="container">
+    <div class="row gy-4">
 
-          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-item position-relative">
-              <h4>9.2. Impacto do P4 no Futuro das Redes Programáveis</h4>
-              <p>
-                A linguagem P4 é importante pois tem impactos positivos tanto no aspecto de fluxo de rede, como na segurança na camada de dados (filtragem, mitigação de DDoS) e na integração de rede. O P4 fortalece o uso da ideia de rede como software, muda o paradigma da rede definida pelo fabricante para rede definida pelo operador, e abre computação em redes. Além disso, proporciona redes mais observáveis e adaptáveis e possibilita explorar o uso de Machine Learning para previsão e tratamento de pacotes.
-              </p>
-            </div>
-          </div>
-
-          <div class="col-xl-12" data-aos="fade-up" data-aos-delay="300">
-            <div class="service-item position-relative">
-              <h4>9.3. Considerações Finais</h4>
-              <p>
-                O P4 possui grande potencial para transformar as redes, por oferecer flexibilidade, visibilidade e controle sobre o plano de dados, além de viabilizar aplicações de segurança e de computação em rede, inclusive com apoio de técnicas de inteligência artificial.
-              </p>
-              <p>
-                Entretanto, a curva de aprendizado, a portabilidade limitada na prática e a necessidade de equipamentos compatíveis elevam o custo de adoção e tendem a concentrar seu uso em grandes operadoras e data centers. Assim, a consolidação do P4 dependerá do amadurecimento das ferramentas e da padronização das arquiteturas, como o PSA, o que faz dele um tema promissor para estudos futuros.
-              </p>
-            </div>
-          </div>
-
+      <!-- 9.1. Impacto do P4 -->
+      <div class="col-xl-12" data-aos="fade-up" data-aos-delay="100">
+        <div class="service-item position-relative">
+          <h4>9.1. Impacto do P4 no Futuro das Redes Programáveis</h4>
+          <p>
+            A linguagem P4 é importante pois tem impactos positivos tanto no aspecto de fluxo de rede, como na segurança na camada de dados (filtragem, mitigação de DDoS) e na integração de rede. O P4 fortalece o uso da ideia de rede como software, muda o paradigma da rede definida pelo fabricante para rede definida pelo operador, e abre computação em redes. Além disso, proporciona redes mais observáveis e adaptáveis e possibilita explorar o uso de Machine Learning para previsão e tratamento de pacotes.
+          </p>
         </div>
       </div>
-    </section><!-- /9. Conclusão -->
+
+      <!-- 9.2. Considerações Finais -->
+      <div class="col-xl-12" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-item position-relative">
+          <h4>9.2. Considerações Finais</h4>
+          <p>
+            O P4 possui grande potencial para transformar as redes, por oferecer flexibilidade, visibilidade e controle sobre o plano de dados, além de viabilizar aplicações de segurança e de computação em rede, inclusive com apoio de técnicas de inteligência artificial.
+          </p>
+
+          <p>
+            Entretanto, a curva de aprendizado, a portabilidade limitada na prática e a necessidade de equipamentos compatíveis elevam o custo de adoção e tendem a concentrar seu uso em grandes operadoras e data centers. Assim, a consolidação do P4 dependerá do amadurecimento das ferramentas e da padronização das arquiteturas, como o PSA, o que faz dele um tema promissor para estudos futuros.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+<!-- /9. Conclusão -->
 
     <!-- Perguntas aos Leitores -->
     <section id="perguntas" class="faq-2 section">
